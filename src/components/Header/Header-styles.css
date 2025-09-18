@@ -1,0 +1,222 @@
+/* -----------------------------------
+   Header + Avatar
+----------------------------------- */
+header {
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+    max-height: 80px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--foreground);
+}
+
+.user-avatar-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.1s;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.25s ease-out forwards;
+}
+
+.avatar-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    padding: 0.25rem 0;
+    min-width: 180px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.menu-email {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.menu-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu-link:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+}
+
+.menu-actions button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.menu-actions button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* -----------------------------------
+   Общие стили для модальных окон
+----------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.modal-container {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    position: relative;
+    animation: pop-in 0.25s ease-out forwards;
+}
+
+@keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.close-btn:hover {
+    color: #111827;
+}
+
+/* -----------------------------------
+   Тёмная тема
+----------------------------------- */
+@media (prefers-color-scheme: dark) {
+    .avatar-menu {
+        background-color: #1f1f1f;
+        border-color: #333;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+
+    .menu-email {
+        color: #ededed;
+        border-bottom-color: #333;
+    }
+
+    .menu-link {
+        color: #ededed;
+    }
+
+    .menu-link:hover {
+        background-color: #333;
+        color: #ffffff;
+    }
+
+    .menu-actions button {
+        background-color: #2563eb;
+    }
+
+    .menu-actions button:hover {
+        background-color: #1d4ed8;
+    }
+
+    .modal-container {
+        background-color: #1f1f1f;
+        color: #ededed;
+    }
+
+    .close-btn {
+        color: #ededed;
+    }
+}

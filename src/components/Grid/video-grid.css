@@ -1,0 +1,105 @@
+
+.main {
+    display: flex;
+    min-height: calc(100vh - 72px);
+}
+
+
+
+.video-grid {
+    flex: 1;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    grid-auto-rows: 200px;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.video-card {
+    width: 240px;
+    height: 200px;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .video-card {
+        background-color: #1f1f1f;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .video-card:hover {
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+}
+
+.video-card .thumbnail {
+    width: 100%;
+    height: 120px;
+    background-color: #d1d5db;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .video-card .thumbnail {
+        background-color: #333;
+        color: #999;
+    }
+}
+
+.video-card .video-info {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    flex-direction: row; /* уже есть */
+    justify-content: space-between; /* текст слева, views справа */
+    align-items: center; /* выравнивание по центру по вертикали */
+    gap: 1rem;
+}
+
+.video-card .video-info div:first-child {
+    flex: 1; /* текст занимает оставшееся место */
+}
+
+.video-card .video-info div:last-child {
+    white-space: nowrap; /* чтобы счетчик не переносился */
+    text-align: right;
+}
+
+.video-card .video-info h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2rem;
+}
+
+.video-card .video-info p {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+    .video-card .video-info p {
+        color: #aaa;
+    }
+}
+
+.video-card video {
+    height: 130px;
+}
+
