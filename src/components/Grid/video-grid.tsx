@@ -2,17 +2,7 @@
 import Link from "next/link";
 import "./video-grid.css"
 import {supabase} from "@/lib/supabase";
-
-type Video = {
-    id: string;
-    title: string;
-    description: string;
-    file_path: string;
-    is_private: boolean;
-    url: string | null;
-    [key: string]: any;
-    views?: number;
-};
+import { Video } from "@/types/video-type"
 
 
 type Props = {

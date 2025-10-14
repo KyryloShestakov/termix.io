@@ -1,19 +1,20 @@
-
 .main {
     display: flex;
     min-height: calc(100vh - 72px);
+    flex: 1;
+    gap: 1rem;
 }
-
-
 
 .video-grid {
     flex: 1;
+    min-height: 0;
     padding: 1.5rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, 240px);
     grid-auto-rows: 200px;
     gap: 1.5rem;
-    justify-content: center;
+    justify-content: start;
+    overflow-y: auto;
 }
 
 .video-card {
@@ -44,6 +45,7 @@
     }
 }
 
+/* ===== Миниатюра ===== */
 .video-card .thumbnail {
     width: 100%;
     height: 120px;
@@ -64,21 +66,22 @@
     }
 }
 
+/* ===== Информация о видео ===== */
 .video-card .video-info {
     padding: 0.5rem 0.75rem;
     display: flex;
-    flex-direction: row; /* уже есть */
-    justify-content: space-between; /* текст слева, views справа */
-    align-items: center; /* выравнивание по центру по вертикали */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
 }
 
 .video-card .video-info div:first-child {
-    flex: 1; /* текст занимает оставшееся место */
+    flex: 1;
 }
 
 .video-card .video-info div:last-child {
-    white-space: nowrap; /* чтобы счетчик не переносился */
+    white-space: nowrap;
     text-align: right;
 }
 
@@ -99,7 +102,10 @@
     }
 }
 
+/* ===== Видео внутри карточки ===== */
 .video-card video {
     height: 130px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem 0.75rem 0 0;
 }
-

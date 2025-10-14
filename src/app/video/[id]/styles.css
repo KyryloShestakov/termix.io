@@ -1,10 +1,11 @@
-/* ===== Общая страница ===== */
+
 .youtube-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background: #f9f9f9;
     color: #111;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,16 +41,18 @@
 
 .video-player-wrapper {
     width: 100%;
+    max-width: 960px; /* ограничение ширины как у YouTube */
     aspect-ratio: 16 / 9;
     background: black;
     border-radius: 0.75rem;
     overflow: hidden;
+    margin: 0 auto; /* центрирует видео */
 }
 
 .video-player {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover; /* если хочешь, чтобы видео заполняло рамку */
     background: black;
 }
 

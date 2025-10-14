@@ -1,0 +1,18 @@
+/* PageWrapper.module.css */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
