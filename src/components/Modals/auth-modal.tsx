@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase"; // убедись, что это клиент для браузера
 import "../Modals/auth-modal-styles.css";
 
 type AuthModalProps = {
@@ -12,7 +12,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
+    // Закрытие модалки по Esc
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
@@ -25,22 +28,49 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const url = isLogin ? "/api/auth/signin" : "/api/auth/signup";
-        const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-        const data = await res.json();
-        console.log(data);
+        setLoading(true);
+        setErrorMsg("");
+
+        try {
+            let data, error;
+
+            if (isLogin) {
+                ({ data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                }));
+            } else {
+                ({ data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                }));
+            }
+
+            if (error) {
+                setErrorMsg(error.message);
+                return;
+            }
+
+            onClose();
+            window.location.reload();
+        } catch (err: any) {
+            setErrorMsg(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleGoogleLogin = async () => {
-        const { error } = await supabase.auth.signInWithOAuth({
+        const { data, error } = await supabase.auth.signInWithOAuth({
             provider: "google",
-            options: { redirectTo: window.location.origin },
+            options: {
+                redirectTo: window.location.origin, // после логина вернёт на текущую страницу
+            },
         });
-        if (error) console.log("Google login error:", error.message);
+
+        if (error) {
+            setErrorMsg(error.message);
+        }
     };
 
     return (
@@ -73,10 +103,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                             required
                         />
                     )}
-                    <button className="submit-btn" type="submit">
-                        {isLogin ? "Login" : "Register"}
+                    <button className="submit-btn" type="submit" disabled={loading}>
+                        {loading ? "Loading..." : isLogin ? "Login" : "Register"}
                     </button>
                 </form>
+
+                {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
 
                 <button className="google-btn" onClick={handleGoogleLogin}>
                     Continue with Google
@@ -85,8 +117,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <p className="toggle-text">
                     {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
                     <span onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? "Register" : "Login"}
-          </span>
+                        {isLogin ? "Register" : "Login"}
+                    </span>
                 </p>
             </div>
         </div>
