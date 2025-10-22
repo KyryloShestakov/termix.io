@@ -1,17 +1,22 @@
-
+/* Общий контейнер страницы канала */
 .channel-page-wrapper {
     display: flex;
     height: 100vh;
     width: 100vw;
-    font-family: Arial, sans-serif;
+    /*font-family: Arial, sans-serif;*/
+    /*background-color: #f9fafb;*/
+    background-color: var(--background);
+
 }
 
 
+/* Основная часть справа */
 .channel-main {
     flex: 1;
-    padding: 1rem;
+    /*padding: 2rem;*/
     overflow-y: auto;
-    box-shadow: #383838 1px 1px 1px;
+    background-color: var(--background);
+    box-shadow: inset 1px 0 0 #e5e7eb;
 }
 
 .channel-main h2 {
@@ -28,23 +33,36 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s ease-in-out;
 }
 
 .create-channel-btn:hover {
     background-color: #2563eb;
+    transform: scale(1.02);
 }
 
+/* Карточка канала */
+.channel-card {
+    background-color: #f3f4f6;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 
+
+}
+
+/* Заголовок канала */
 .channel-card .channel-header {
     display: flex;
     align-items: center;
     gap: 1rem; /* расстояние между аватаркой и названием */
 }
 
+/* Аватар */
 .channel-card .avatar {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background-color: #3b82f6; /* синий фон, можно менять */
     color: white;
@@ -54,17 +72,18 @@
     font-weight: bold;
     font-size: 1rem;
     flex-shrink: 0; /* чтобы аватарка не сжималась */
+    box-shadow: 0 0 0 3px #bfdbfe;
 }
 
+/* Название канала */
 .channel-card h2 {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
+    color: #111827;
 }
 
-.channel-header h2 {
-    color: white;
+.channel-card span {
+    font-size: 0.875rem;
+    color: #6b7280;
 }
-
-
-

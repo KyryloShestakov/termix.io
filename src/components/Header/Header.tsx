@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import "./Header-styles.css";
 import Link from "next/link";
+import {router} from "next/client";
 
 type HeaderProps = {
     onOpenAuthModal: () => void;

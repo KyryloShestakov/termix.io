@@ -1,17 +1,15 @@
 import React from "react";
-import "@/components/Side-bar/channel-side-bar-styles.css"
+import "@/components/Side-bar/main-side-bar-styles.css"
 
 export default function ChannelSideBar() {
     return (
         <aside className="sidebar">
-            <ul>
-                <a href={"/channel"}><li>Dashboard</li></a>
-                <li>Settings</li>
-                <li>Analytics</li>
-                <a href={"/channel/studio"}>
-                    <li>Studio</li>
-                </a>
-            </ul>
+            <nav>
+                <a href={"/channel"}>Dashboard</a>
+                <a href={"#"}>Settings</a>
+                <a href={"#"}>Analytics</a>
+                <a href={"/channel/studio"}>Studio</a>
+            </nav>
         </aside>
     )
 }

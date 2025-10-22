@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase"; // убедись, что это клиент для браузера
 import "../Modals/auth-modal-styles.css";
+import {supabase} from "@/lib/supabase";
 
 type AuthModalProps = {
     isOpen: boolean;
@@ -15,7 +15,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
-    // Закрытие модалки по Esc
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
@@ -61,17 +60,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     };
 
     const handleGoogleLogin = async () => {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: "google",
-            options: {
-                redirectTo: window.location.origin, // после логина вернёт на текущую страницу
-            },
-        });
+        window.location.href = 'auth/google'
+    }
 
-        if (error) {
-            setErrorMsg(error.message);
-        }
-    };
 
     return (
         <div className="auth-modal-overlay">
