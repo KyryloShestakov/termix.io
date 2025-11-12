@@ -42,4 +42,17 @@ export default class BaseService<T> {
         if (error) throw error;
         return true;
     }
+
+    async update(id: string | number, item: Partial<T>): Promise<T | null> {
+        // @ts-ignore
+        const { data, error } = await supabase.from<T>(this.table)
+            .update(item)
+            .eq("id", id)
+            .select()
+            .maybeSingle();
+
+        if (error) throw error;
+        return data || null;
+    }
+
 }
