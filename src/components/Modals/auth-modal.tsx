@@ -1,14 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
 import "../Modals/auth-modal-styles.css";
-import {supabase} from "@/lib/supabase";
+import {supabase} from "@/utils/supabase/supabase";
+import {signInWithGoogle} from "@/app/auth/auth";
 
 type AuthModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    nextUrl?: string;
 };
 
-export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
+export default function AuthModal({ isOpen, onClose, nextUrl }: AuthModalProps) {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,6 +26,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }, [onClose]);
 
     if (!isOpen) return null;
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -59,13 +62,21 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         }
     };
 
-    const handleGoogleLogin = async () => {
-        window.location.href = 'auth/google'
+    async function handleGoogleLogin() {
+        const { url } = await signInWithGoogle("/");
+        if (url) {
+            window.location.href = url
+        }
     }
 
 
     return (
-        <div className="auth-modal-overlay">
+        <div className="auth-modal-overlay"
+             onClick={(e) => {
+                 if (e.target === e.currentTarget) {
+                     onClose();
+                 }
+             }}>
             <div className="auth-modal-container">
                 <button className="close-btn" onClick={onClose}>
                     ✕

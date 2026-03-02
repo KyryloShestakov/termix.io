@@ -39,7 +39,7 @@ export async function subscribe(subscriberId: string, channelId: string): Promis
 
     const { data, error } = await supabase
         .from("subscriptions")
-        .insert({ subscriber_id: subscriberId, channel_id: channelId })
+        .upsert({ subscriber_id: subscriberId, channel_id: channelId })
         .select()
         .maybeSingle();
 
@@ -92,4 +92,20 @@ export async function countSubscriptions(subscriberId: string): Promise<number> 
     }
 
     return count || 0;
+}
+
+export async function getSubscription(subscriberId: string, channelId: string): Promise<boolean> {
+    const { data, error } = await supabase
+        .from("subscriptions")
+        .select("*")
+        .eq("subscriber_id", subscriberId)
+        .eq("channel_id", channelId)
+        .maybeSingle();
+
+    if (error) {
+        console.error("Error checking subscription:", error.message);
+        return false;
+    }
+
+    return !!data;
 }

@@ -9,11 +9,14 @@ export interface Video {
     comments: Comment[];
     views?: number;
     [key: string]: any;
+    channel_id: string;
+    created_at: string;
 };
 
 export interface Comment {
     id: string;
     user_id: string;
+    userName: string;
     content: string;
     created_at: string;
 }

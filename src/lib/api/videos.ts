@@ -1,36 +1,18 @@
-import {supabase} from "@/lib/supabase";
-import {Video, Comment} from "@/types/video-type"
+import {Video} from "@/types/video-type"
 
-export default async function getVideos(channelId?: string, videoId?: string): Promise<Video[]>  {
-    let query = supabase
-        .from("videos")
-        .select(`
-            *,
-            likes:likes(id),      
-            comments:comments(*)
-        `)
-        .order("created_at", { ascending: false });
+export function getTrendingVideos(videos: Video[] | null, now: Date = new Date()): Video[] {
+    if (!videos || videos.length === 0) return [];
+    const scoredVideos = videos.map(video => {
+        const views = video.views || 0;
+        const likes = video.likes_count || 0;
+        const comments = video.comments?.length || 0;
 
-    if (channelId) query = query.eq("channel_id", channelId);
-    if (videoId) query = query.eq("id", videoId);
+        const hoursSinceUpload = (now.getTime() - new Date(video.created_at).getTime()) / 3600000;
 
-    const { data: videos, error } = await query;
+        const score = (views + likes * 2 + comments * 3) / Math.pow(hoursSinceUpload + 2, 1.5);
 
-    if (error || !videos) {
-        console.error("Error fetching videos:", error);
-        return [];
-    }
-
-    const videosWithUrls: Video[] = videos.map((video: any) => {
-        const publicUrl: string | null = video.file_path
-            ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/${video.file_path}`
-            : null;
-
-        const likes_count = video.likes?.length || 0;
-        const comments: Comment[] = video.comments || [];
-
-        return { ...video, url: publicUrl, likes_count, comments };
+        return { ...video, score };
     });
 
-    return videosWithUrls;
+    return scoredVideos.sort((a, b) => (b as any).score - (a as any).score);
 }

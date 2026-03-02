@@ -1,0 +1,164 @@
+/* UploadForm */
+
+.uploadForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 1.5rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    .uploadForm {
+        background-color: #1f1f1f;
+        border-color: #333;
+        color: #f5f5f5;
+    }
+}
+
+.uploadForm label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+@media (prefers-color-scheme: dark) {
+    .uploadForm label {
+        color: #e5e7eb;
+    }
+}
+
+.uploadForm input[type="text"],
+.uploadForm input[type="file"],
+.uploadForm textarea {
+    margin-top: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    background-color: #f9fafb;
+    color: #111827;
+    transition: border 0.2s, background 0.2s;
+}
+
+@media (prefers-color-scheme: dark) {
+    .uploadForm input[type="text"],
+    .uploadForm input[type="file"],
+    .uploadForm textarea {
+        background-color: #2b2b2b;
+        color: #f5f5f5;
+        border-color: #444;
+    }
+}
+
+.uploadForm input:focus,
+.uploadForm textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: #ffffff;
+}
+
+.uploadForm .privacyLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.uploadForm .submitBtn {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+}
+
+.uploadForm .submitBtn:hover {
+    background-color: #2563eb;
+}
+
+.uploadForm .submitBtn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* Studio */
+
+.studioPage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+
+.studioPageWrapper {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+    .studioPageWrapper {
+        background-color: #1f1f1f;
+        border-color: #333;
+        color: #f5f5f5;
+    }
+}
+
+.studioMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.studioMain h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .studioMain h1 {
+        color: #f5f5f5;
+    }
+}
+
+.studioMain p {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .studioMain p {
+        color: #9ca3af;
+    }
+}
+
+@media (max-width: 640px) {
+    .studioPageWrapper {
+        padding: 1.25rem;
+    }
+
+    .studioMain h1 {
+        font-size: 1.5rem;
+    }
+}
+

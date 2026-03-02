@@ -2,6 +2,8 @@
 /*!*!* Account side bar *!*!*/
 
 .sidebar{
+    height: 100vh;
+    position: fixed;
     width: 160px;
     padding: 1rem;
     border-right: 1px solid #e5e7eb;
@@ -132,4 +134,11 @@
 
 .createBtn:active:not(:disabled) {
     transform: scale(0.97);
+}
+
+.main {
+    flex: 1;
+    padding: 1.5rem;
+    margin-left: 160px;
+    width: 100%;
 }

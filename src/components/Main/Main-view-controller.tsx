@@ -29,7 +29,8 @@ export default function MainViewController({user, videos = [] }: Props) {
         localStorage.setItem("activeMainTab", active);
     }, [active]);
 
-    //TODO При перезагрузки возврощает на хоум
+    // При перезагрузки возврощает на хоум
+    // сделать комьюнити
     useEffect(() => {
         setActive("home");
     }, [pathname]);
@@ -37,7 +38,7 @@ export default function MainViewController({user, videos = [] }: Props) {
     const renderContent = () => {
         switch (active) {
             case "home":
-                return <VideoGrid videos={videos.filter(video => video.is_private === false)}/>;
+                return <VideoGrid videos={videos.filter(video => video.is_private === false)} isVertical={false} />;
             case "trending":
                 return <Trending video={videos.filter(video => video.is_private === false)}/>
             case "communities":

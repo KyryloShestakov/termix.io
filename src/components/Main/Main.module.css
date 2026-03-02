@@ -1,0 +1,68 @@
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    width: 160px;
+    padding: 1rem;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+    .sidebar {
+        background-color: #1f1f1f;
+        border-color: #333;
+    }
+}
+
+.navButton {
+    width: 100%;
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: none;
+    border: none;
+    text-align: left;
+    color: #111827;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-sizing: border-box;
+}
+
+.navButton:hover {
+    background-color: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+    .navButton {
+        color: #e5e7eb;
+    }
+    .navButton:hover {
+        background-color: #333;
+    }
+}
+
+.active {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.active:hover {
+    background-color: #2563eb;
+}
+
+.main {
+    flex: 1;
+    padding: 1.5rem;
+    margin-left: 160px;
+    width: 100%;
+}
+
+
+
+
+

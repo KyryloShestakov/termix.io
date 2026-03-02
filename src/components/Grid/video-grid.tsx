@@ -1,49 +1,102 @@
 "use client";
-import Link from "next/link";
-import "./video-grid.css"
-import {supabase} from "@/lib/supabase";
-import { Video } from "@/types/video-type"
 
+import Link from "next/link";
+import styles from "./video-grid.module.css";
+import { supabase } from "@/utils/supabase/supabase";
+import { Video } from "@/types/video-type";
+import ChannelLabel, { ChannelIcon } from "@/components/Grid/channelLabel";
+import { timeAgo } from "@/utils/timeAgo";
+import { useState } from "react";
 
 type Props = {
     videos: Video[];
+    isVertical: boolean;
 };
 
-export default function VideoGrid({ videos }: Props) {
-    if (!videos || videos.length === 0) {
-        return <p>No videos available.</p>;
-    }
+export default function VideoGrid({ videos, isVertical = false }: Props) {
+    const [menuData, setMenuData] = useState<{
+        video: Video;
+        x: number;
+        y: number;
+    } | null>(null);
 
     const handleVideoClick = async (videoId: string) => {
         const { error } = await supabase.rpc("increment_views", { video_id: videoId });
         if (error) console.error("Error updating views:", error);
     };
 
+    const handleMoreClick = (e: React.MouseEvent, video: Video) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const rect = (e.target as HTMLElement).getBoundingClientRect();
+        setMenuData({ video, x: rect.left, y: rect.bottom });
+    };
+
+    const closeMenu = () => setMenuData(null);
+
+    if (!videos || videos.length === 0) {
+        return <p className={styles.noVideos}>No videos available.</p>;
+    }
+
     return (
-        <main className="video-grid">
-            {videos.map((video) => (
-                <Link key={video.id} className={"link-card"} href={`/video/${video.id}`} onClick={() => handleVideoClick(video.id)}>
-                        <div className="video-card">
+        <>
+            <main className={styles.videoGrid}>
+                {videos.map((video) => (
+                    <Link
+                        key={video.id}
+                        href={`/video/${video.id}`}
+                        className={styles.linkCard}
+                        onClick={() => handleVideoClick(video.id)}
+                    >
+                        <div className={styles.videoCard}>
                             {video.url ? (
-                                <video controls src={video.url}>
-                                    Your browser does not support the video tag.
-                                </video>
+                                <video className={styles.videoThumbnail} controls src={video.url} />
                             ) : (
-                                <p>Video not available</p>
+                                <div className={styles.thumbnailFallback}>Video not available</div>
                             )}
-                            <div className="thumbnail">Thumbnail</div>
-                            <div className="video-info">
-                                <div>
-                                    <h3>{video.title}</h3>
-                                    <p>{video.description}</p>
+
+                            <div className={styles.videoInfo}>
+                                <div className={styles.channelIcon}>
+                                    <ChannelIcon channelId={video.channel_id} size={35}/>
                                 </div>
-                                <div>
-                                    <p>Views: {video.views || 0}</p>
+
+                                <div className={styles.videoMeta}>
+                                    <div className={styles.titleRow}>
+                                        <h3 className={styles.videoTitle}>{video.title}</h3>
+                                        <button
+                                            className={styles.moreBtn}
+                                            onClick={(e) => handleMoreClick(e, video)}
+                                        >
+                                            &#x22EE;
+                                        </button>
+                                    </div>
+
+                                    <div className={styles.bottomInfo}>
+                                        <ChannelLabel channelId={video.channel_id}/>
+                                        <span className={styles.meta}>
+                                         {video.views || 0} views · {timeAgo(video.created_at)}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                </Link>
+                    </Link>
                 ))}
-        </main>
+            </main>
+
+            {/* Модальное меню */}
+            {menuData && (
+                <div className={styles.menuOverlay} onClick={closeMenu}>
+                    <div
+                        className={styles.menuContent}
+                        style={{ top: menuData.y + window.scrollY, left: menuData.x }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button className={styles.menuBtn}>Add to Playlist</button>
+                        <button className={styles.menuBtn}>Download</button>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

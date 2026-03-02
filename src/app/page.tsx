@@ -1,16 +1,12 @@
-import getVideos from "@/lib/api/videos";
 import PageWrapper from "@/components/Layout/PageWrapper";
-import VideoGrid from "@/components/Grid/video-grid";
-import getUser from "@/lib/api/user";
+import MainViewController from "@/components/Main/Main-view-controller";
+import {loadPageData} from "@/lib/loaders/load-page-data";
 
 export default async function Home() {
-    const videos = await getVideos();
-    const user = await getUser();
-    console.log(user?.id);
-
+    const data = await loadPageData()
     return (
-        <PageWrapper>
-            <VideoGrid videos={videos} />
+        <PageWrapper user={data?.user}>
+            <MainViewController user={data?.user ?? null} videos={data?.videos ?? []}/>
         </PageWrapper>
     );
 }

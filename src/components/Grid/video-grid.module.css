@@ -1,0 +1,194 @@
+.videoGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    padding: 1.5rem;
+    justify-content: start;
+    overflow-y: auto;
+    min-height: calc(100vh - 72px);
+}
+
+.linkCard {
+    text-decoration: none;
+    color: inherit;
+}
+
+.videoCard {
+    background-color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+    border: 1px solid transparent;
+}
+
+.videoCard:hover {
+    transform: translateY(-4px);
+    background-color: rgba(0, 0, 0, 0.03);
+    /*border-color: rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 0 25px rgba(31,31,31,0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+    .videoCard {
+        background-color: #1f1f1f;
+    }
+    .videoCard:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        /*border-color: rgba(255, 255, 255, 0.2);*/
+    }
+}
+
+.videoThumbnail {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    pointer-events: none;
+}
+
+.thumbnailFallback {
+    width: 100%;
+    height: 220px;
+    background-color: #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+    border-radius: 12px 12px 0 0;
+}
+
+.videoInfo {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    flex: 1;
+}
+
+.videoMeta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Заголовок видео: максимум 2 строки */
+.videoTitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+/* Строка заголовка + кнопка */
+.titleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.moreBtn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.moreBtn:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .moreBtn:hover {
+        background-color: rgba(255,255,255,0.15);
+    }
+}
+
+/* Нижняя информация */
+.bottomInfo {
+    display: flex;
+    flex-direction: column; /* вертикально */
+    gap: 2px; /* расстояние между названием канала и датой/просмотрами */
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bottomInfo {
+        color: #aaa;
+    }
+}
+
+.meta {
+    margin-left: 0;
+}
+
+.noVideos {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+}
+
+/* Модальное меню */
+.menuOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+}
+
+.menuContent {
+    position: absolute;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    min-width: 150px;
+    z-index: 51;
+}
+
+.menuBtn {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menuBtn:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    .menuContent {
+        background: #2a2a2a;
+        color: #ddd;
+    }
+    .menuBtn:hover {
+        background: rgba(255,255,255,0.1);
+    }
+}
+
+.channelIcon {
+    padding-top: 15px;
+}

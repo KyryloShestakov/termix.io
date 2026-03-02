@@ -1,37 +1,24 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import { supabase } from "@/lib/supabase";
+import React, { useEffect, useState, useRef } from "react";
 import "./Header-styles.css";
 import Link from "next/link";
-import {router} from "next/client";
+import {User} from "@supabase/auth-js";
+import {signOut} from "@/app/auth/auth";
+import SearchInput from "@/components/Search/SearchInput";
+import {getProfileById} from "@/lib/api/profile";
+import {ProfileType} from "@/types";
+import styles from "@/components/Account/Profile/Profile.module.css";
+import AvatarFallback from "@/components/AvatarFallback";
 
 type HeaderProps = {
     onOpenAuthModal: () => void;
+    user?: User;
 };
 
-export default function Header({ onOpenAuthModal }: HeaderProps) {
-    const [user, setUser] = useState<any>(null);
+export default function Header({ onOpenAuthModal, user }: HeaderProps) {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { data } = await supabase.auth.getUser();
-            setUser(data.user);
-        };
-
-        fetchUser();
-
-        const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user || null);
-        });
-
-        return () => {
-            listener.subscription.unsubscribe();
-        };
-    }, []);
-
-    // Закрытие меню при клике вне
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -48,13 +35,18 @@ export default function Header({ onOpenAuthModal }: HeaderProps) {
     };
 
     const handleLogout = async () => {
-        await supabase.auth.signOut();
+        await signOut();
         setMenuOpen(false);
     };
 
     return (
         <header className="header">
-            <a href={"/"}><h1>Termix.io</h1></a>
+            <div className="left-section">
+                <a href="/" className="logo">
+                    <h1>Termix.io</h1>
+                </a>
+                <SearchInput />
+            </div>
             {user ? (
                 <div className="user-avatar-wrapper" ref={menuRef}>
                     <div className="user-avatar" onClick={() => setMenuOpen(!menuOpen)}>
@@ -65,8 +57,8 @@ export default function Header({ onOpenAuthModal }: HeaderProps) {
                         <div className="avatar-menu animate-slide-in">
                             <p className="menu-email">{user.email}</p>
 
-                            <Link href="/channel" className="menu-link">
-                                Channel
+                            <Link href="/private" className="menu-link">
+                                Account
                             </Link>
 
                             <div className="menu-actions">

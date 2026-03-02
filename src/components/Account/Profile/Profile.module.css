@@ -1,0 +1,266 @@
+.profileContainer {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Profile header */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.bio {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Profile stats */
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    justify-content: start;
+}
+
+.stats div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats span {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Profile tabs */
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabButtons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tabButtons button {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tabButtons button:hover {
+    background-color: #f0f0f0;
+}
+
+.tabButtons .active {
+    background-color: #0070f3;
+    color: white;
+    border-color: #0070f3;
+}
+
+.tabContent {
+    min-height: 200px;
+}
+
+/* Private information */
+
+.wrapper {
+    max-width: 600px;
+    /*margin: 0 auto;*/
+    /*padding: 2rem;*/
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    background: var(--background, #fff);
+    border-radius: 12px;
+    /*padding: 1.8rem;*/
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    /*grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));*/
+    gap: 1rem 1.5rem;
+}
+
+.field,
+.fieldFull {
+    display: flex;
+    flex-direction: column;
+}
+
+.fieldFull {
+    grid-column: 1 / -1;
+}
+
+/* LABEL */
+.field label,
+.fieldFull label {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+/* INPUTS */
+.field input,
+.field textarea,
+.fieldFull input,
+.fieldFull textarea {
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 0.9rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: white;
+}
+
+.field input:focus,
+.field textarea:focus,
+.fieldFull input:focus,
+.fieldFull textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    outline: none;
+}
+
+.field textarea,
+.fieldFull textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* TOGGLE SWITCH */
+.toggleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    display: inline-block;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background: #ccc;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: .3s;
+}
+
+.switch input:checked + .slider {
+    background: #3b82f6;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* SAVE BUTTON */
+.saveBtn {
+    margin-top: 1rem;
+    padding: 0.8rem 1.4rem;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.saveBtn:hover {
+    background: #2563eb;
+}
+
+.saveBtn:active {
+    transform: scale(0.97);
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #1f1f1f;
+    }
+
+    .field label,
+    .fieldFull label {
+        color: #ccc;
+    }
+
+    .field input,
+    .field textarea,
+    .fieldFull input,
+    .fieldFull textarea {
+        background: #2a2a2a;
+        border: 1px solid #444;
+        color: #eee;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .fieldFull input:focus,
+    .fieldFull textarea:focus {
+        border-color: #3b82f6;
+    }
+}

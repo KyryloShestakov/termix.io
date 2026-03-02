@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
-import "./channel-modal-styles.css";
+import { supabase } from "@/utils/supabase/supabase";
+import styles from "@/components/Modals/channel.module.css";
 
 type ChannelModalProps = {
     isOpen: boolean;
+    // @ts-ignore
     onClose: () => void;
     userId: string | null;
 };
@@ -17,10 +18,10 @@ export default function ChannelModal({ isOpen, onClose, userId }: ChannelModalPr
 
     const handleCreate = async () => {
         if (!userId) return;
-        const { data, error } = await supabase.from("channels").insert([
-            { name, is_private: isPrivate, owner_id: userId }
+        const { error } = await supabase.from("channels").insert([
+            { name, is_private: isPrivate, owner_id: userId },
         ]);
-        if (error) console.log(error);
+        if (error) console.error(error);
         else {
             setName("");
             setIsPrivate(true);
@@ -28,10 +29,16 @@ export default function ChannelModal({ isOpen, onClose, userId }: ChannelModalPr
         }
     };
 
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) onClose();
+    };
+
     return (
-        <div className="channel-modal-overlay">
-            <div className="channel-modal-container">
-                <button className="close-btn" onClick={onClose}>✕</button>
+        <div className={styles.channelModalOverlay} onClick={handleOverlayClick}>
+            <div className={styles.channelModalContainer}>
+                <button className={styles.closeBtn} onClick={onClose}>
+                    ✕
+                </button>
                 <h2>Create Channel</h2>
                 <input
                     type="text"
@@ -47,7 +54,7 @@ export default function ChannelModal({ isOpen, onClose, userId }: ChannelModalPr
                     />
                     Private
                 </label>
-                <button className="create-btn" onClick={handleCreate}>
+                <button className={styles.createBtn} onClick={handleCreate}>
                     Create
                 </button>
             </div>

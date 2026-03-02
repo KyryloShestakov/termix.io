@@ -2,25 +2,22 @@
 
 import {useState} from "react";
 import Header from "@/components/Header/Header";
-import MainSideBar from "@/components/Side-bar/main-side-bar";
 import AuthModal from "@/components/Modals/auth-modal";
 import styles from "./PageWrapper.module.css"
-import {useSession} from "@/components/SessionProvider";
+import {User} from "@supabase/auth-js";
 
 
 type Props = {
     children: React.ReactNode;
-    hideSidebar?: boolean;
+    user?: User;
 };
 
-export default function PageWrapper({ children, hideSidebar = false }: Props) {
+export default function PageWrapper({ children, user }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div className={styles.wrapper}>
-            <Header onOpenAuthModal={() => setIsModalOpen(true)}/>
-
+            <Header onOpenAuthModal={() => setIsModalOpen(true)} user={user}/>
             <div className={styles.body}>
-                {!hideSidebar && <MainSideBar />}
                 <main className={styles.main}>
                     {children}
                 </main>
