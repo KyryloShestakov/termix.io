@@ -1,54 +1,44 @@
 'use client'
 import React, {useEffect, useState} from "react";
 import {User} from "@supabase/auth-js";
-import {Video, ChannelType} from "@/types"
+import {Video} from "@/types"
 import styles from "./Main.module.css";
 import VideoGrid from "@/components/Grid/video-grid";
-import {redirect, usePathname} from "next/navigation";
+import {redirect} from "next/navigation";
 import Trending from "@/components/Main/Trending/Trending";
 import Subscriptions from "@/components/Main/Subscriptions/Subscriptions";
 
 type Props = {
     user: User | null;
-    // channel: ChannelType | null;
     videos: Video[];
 }
 
 export default function MainViewController({user, videos = [] }: Props) {
-    const [active, setActive] = useState<"home" | "trending" | "communities" | "subscriptions" | "library">("home");
-    const pathname = usePathname();
-
-    useEffect(() => {
-        const savedTab = localStorage.getItem("activeMainTab");
-        if (savedTab) {
-            setActive(savedTab as any);
+    const [active, setActive] = useState<"home" | "trending" | "communities" | "subscriptions" | "library">(() => {
+        if (typeof window !== "undefined") {
+            return (localStorage.getItem("activeMainTab") as any) || "home";
         }
-    }, []);
+        return "home";
+    });
 
     useEffect(() => {
         localStorage.setItem("activeMainTab", active);
     }, [active]);
 
-    // При перезагрузки возврощает на хоум
-    // сделать комьюнити
-    useEffect(() => {
-        setActive("home");
-    }, [pathname]);
+    //сделать комьюнити
 
     const renderContent = () => {
         switch (active) {
             case "home":
-                return <VideoGrid videos={videos.filter(video => video.is_private === false)} isVertical={false} />;
+                return <VideoGrid videos={videos.filter(video => !video.is_private)} isVertical={false} />;
             case "trending":
-                return <Trending video={videos.filter(video => video.is_private === false)}/>
+                return <Trending video={videos.filter(video => !video.is_private)}/>
             case "communities":
                 return <div>Communites</div>
             case "subscriptions":
                 if (user)
                     return <Subscriptions user={user}/>
                 else redirect("/auth/auth-error");
-            default:
-                return null;
         }
     };
 
