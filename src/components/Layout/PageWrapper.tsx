@@ -9,7 +9,7 @@ import {User} from "@supabase/auth-js";
 
 type Props = {
     children: React.ReactNode;
-    user?: User;
+    user: User | null;
 };
 
 export default function PageWrapper({ children, user }: Props) {

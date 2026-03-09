@@ -5,14 +5,11 @@ import Link from "next/link";
 import {User} from "@supabase/auth-js";
 import {signOut} from "@/app/auth/auth";
 import SearchInput from "@/components/Search/SearchInput";
-import {getProfileById} from "@/lib/api/profile";
-import {ProfileType} from "@/types";
-import styles from "@/components/Account/Profile/Profile.module.css";
-import AvatarFallback from "@/components/AvatarFallback";
+
 
 type HeaderProps = {
     onOpenAuthModal: () => void;
-    user?: User;
+    user: User | null;
 };
 
 export default function Header({ onOpenAuthModal, user }: HeaderProps) {

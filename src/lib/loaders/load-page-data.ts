@@ -1,25 +1,24 @@
-import { videoService} from "@/lib/services";
+import { videoService } from "@/lib/services";
 import getUser from "@/lib/api/user";
 import { Video } from "@/types";
 import { User } from "@supabase/auth-js";
 
 interface PageDataResult {
-    videos?: Video[];
-    user?: User;
-    error?: any;
+    videos: Video[];
+    user: User | null;
 }
-// надо это как то грамотно переделать
-export async function loadPageData(): Promise<PageDataResult> {
-    try {
-        const result: PageDataResult = {};
-        const videos = await videoService.getVideos();
-        result.videos = videos;
-        const user = await getUser();
-        result.user = user || null;
 
-        return result;
-    } catch (error) {
-        console.error("Error loading page data:", error);
-        return {error};
-    }
+export async function loadPageData(): Promise<PageDataResult> {
+    const [videosResult, userResult] = await Promise.allSettled([
+        videoService.getVideos(),
+        getUser(),
+    ]);
+
+    const videos =
+        videosResult.status === "fulfilled" ? videosResult.value : [];
+
+    const user =
+        userResult.status === "fulfilled" ? userResult.value ?? null : null;
+
+    return { videos, user };
 }
