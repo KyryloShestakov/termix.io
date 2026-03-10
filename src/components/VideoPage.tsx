@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 import { Video } from "@/types/video-type";
 import { User } from "@supabase/auth-js";
 import "@/app/video/[id]/styles.css"
@@ -12,7 +12,6 @@ type Props = {
 
 export default function VideoPage({ video: initialVideo, user }: Props) {
     const [video, setVideo] = useState<Video>(initialVideo);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [newComment, setNewComment] = useState("");
 
     const handleLike = async () => {
