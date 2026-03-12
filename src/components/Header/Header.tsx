@@ -6,7 +6,6 @@ import {User} from "@supabase/auth-js";
 import {signOut} from "@/app/auth/auth";
 import SearchInput from "@/components/Search/SearchInput";
 
-
 type HeaderProps = {
     onOpenAuthModal: () => void;
     user: User | null;

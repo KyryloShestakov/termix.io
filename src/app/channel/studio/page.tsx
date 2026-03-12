@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ChannelSideBar from "@/components/Side-bar/channel-side-bar";
 import Header from "@/components/Header/Header";
 import "./studio-styles.css";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 import { uploadVideo } from "@/components/Uploaders/UploadVideo";
 
 export default function StudioPage() {
@@ -47,7 +47,7 @@ export default function StudioPage() {
             return;
         }
 
-        const { video, url, error } = await uploadVideo(
+        const { error } = await uploadVideo(
             videoFile,
             user.id,
             channel.id,
@@ -73,7 +73,7 @@ export default function StudioPage() {
 
     return (
         <div className="studio-page">
-            <Header onOpenAuthModal={() => {}} />
+            <Header onOpenAuthModal={() => {}} user={user} />
 
             <div className="studio-page-wrapper">
                 <ChannelSideBar />
