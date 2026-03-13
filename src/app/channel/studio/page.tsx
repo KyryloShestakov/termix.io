@@ -15,7 +15,6 @@ export default function StudioPage() {
     const [channel, setChannel] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // Получаем пользователя
     useEffect(() => {
         const fetchUser = async () => {
             const { data } = await supabase.auth.getUser();
@@ -25,7 +24,6 @@ export default function StudioPage() {
         fetchUser();
     }, []);
 
-    // Получаем канал после загрузки пользователя
     useEffect(() => {
         const fetchChannel = async () => {
             if (!user) return;
@@ -62,7 +60,6 @@ export default function StudioPage() {
         }
 
         alert("Video uploaded successfully!");
-        // Сброс формы
         setVideoFile(null);
         setVideoTitle("");
         setVideoDescription("");
