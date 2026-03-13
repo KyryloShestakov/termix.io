@@ -13,7 +13,6 @@ export default function SubscribersList({ user }: SubscribersListProps) {
     const [channelNames, setChannelNames] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(true);
 
-    // Загружаем подписки пользователя
     useEffect(() => {
         async function fetchSubscriptions() {
             setLoading(true);
@@ -26,7 +25,6 @@ export default function SubscribersList({ user }: SubscribersListProps) {
         fetchSubscriptions();
     }, [user.id]);
 
-    // Загружаем имена каналов
     useEffect(() => {
         async function fetchChannelNames() {
             if (subscriptions.length === 0) return;
