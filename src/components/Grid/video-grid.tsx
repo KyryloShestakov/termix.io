@@ -13,7 +13,7 @@ type Props = {
     isVertical: boolean;
 };
 
-export default function VideoGrid({ videos, isVertical = false }: Props) {
+export default function VideoGrid({ videos }: Props) {
     const [menuData, setMenuData] = useState<{
         video: Video;
         x: number;
@@ -84,7 +84,6 @@ export default function VideoGrid({ videos, isVertical = false }: Props) {
                 ))}
             </main>
 
-            {/* Модальное меню */}
             {menuData && (
                 <div className={styles.menuOverlay} onClick={closeMenu}>
                     <div

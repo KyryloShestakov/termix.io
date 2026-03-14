@@ -17,7 +17,7 @@ type ChannelProps = {
 export default function Dashboard({user, channel, videos}: ChannelProps){
     const [count, setCount] = useState(0);
     // опять передаю айди держателя канала а не айди канала
-    // сделать нормальную подгзрузку данных
+    // сделать нормальную подгрузку данных
 
     const loadSubscribers = async () => {
         const subscription = await countSubscribers(channel?.owner_id!);
@@ -29,25 +29,26 @@ export default function Dashboard({user, channel, videos}: ChannelProps){
         loadSubscribers()
     }, []);
 
-    return(
+    if (!channel) {
+        return <CreateChannelForm user={user} />;
+    }
+
+    return (
         <div>
-        {!channel ? (
-            <CreateChannelForm user={user}/>
-        ) : (
-            <div>
-                <h1>
-                    {channel.name} {channel.is_private === false ? "(Public)" : "(Private)"}
-                </h1>
-                <h4 style={{
+            <h1>
+                {channel.name} {channel.is_private ? "(Private)" : "(Public)"}
+            </h1>
+            <h4
+                style={{
                     padding: "1px 2px",
                     fontWeight: "400",
                     color: "#cccccc"
-                }}>
-                    Subscribers: {count}
-                </h4>
-                <VideoGrid videos={videos} isVertical={false}/>
-            </div>
-        )}
+                }}
+            >
+                Subscribers: {count}
+            </h4>
+
+            <VideoGrid videos={videos} isVertical={false}/>
         </div>
-    )
+    );
 }
