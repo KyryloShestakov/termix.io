@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 
 export const uploadVideo = async (
     file: File,
@@ -19,13 +19,11 @@ export const uploadVideo = async (
         return { error: uploadError };
     }
 
-    // Публичный URL
     const { data: publicData } = supabase.storage
         .from("videos")
         .getPublicUrl(fileName);
     const publicUrl = publicData?.publicUrl || null;
 
-    // Сохраняем метаданные
     const { data: videoData, error: dbError } = await supabase
         .from("videos")
         .insert([
