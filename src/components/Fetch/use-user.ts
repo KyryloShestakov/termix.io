@@ -1,6 +1,6 @@
 // useUser.ts
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 
 export default function useUser() {
     const [user, setUser] = useState<any>(null);
