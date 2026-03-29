@@ -102,10 +102,11 @@
     }
 }
 
-/* ===== Видео внутри карточки ===== */
 .video-card video {
     height: 130px;
     width: 100%;
     object-fit: cover;
     border-radius: 0.75rem 0.75rem 0 0;
 }
+
+

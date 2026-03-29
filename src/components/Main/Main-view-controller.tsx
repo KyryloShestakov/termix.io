@@ -25,7 +25,7 @@ export default function MainViewController({user, videos = [] }: Props) {
         localStorage.setItem("activeMainTab", active);
     }, [active]);
 
-    //сделать комьюнити
+    //build a community
 
     const renderContent = () => {
         switch (active) {
