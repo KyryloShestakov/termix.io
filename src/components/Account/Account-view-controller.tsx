@@ -44,7 +44,7 @@ export default function AccountViewController({user, channel, videos}: ChannelSi
             case "settings":
                 return <Settings/>;
             case "analytics":
-                return <Analytics channel={channel} user={user}/>;
+                return <Analytics channel={channel}/>;
             case "studio":
                 return <Studio user={user} channel={channel}/>;
             default:
