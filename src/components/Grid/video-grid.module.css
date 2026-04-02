@@ -76,7 +76,6 @@
     justify-content: flex-start;
 }
 
-/* Заголовок видео: максимум 2 строки */
 .videoTitle {
     font-size: 0.95rem;
     font-weight: 600;
@@ -89,7 +88,6 @@
     margin: 0;
 }
 
-/* Строка заголовка + кнопка */
 .titleRow {
     display: flex;
     justify-content: space-between;
@@ -118,11 +116,10 @@
     }
 }
 
-/* Нижняя информация */
 .bottomInfo {
     display: flex;
-    flex-direction: column; /* вертикально */
-    gap: 2px; /* расстояние между названием канала и датой/просмотрами */
+    flex-direction: column;
+    gap: 2px;
     font-size: 0.75rem;
     color: #6b7280;
 }
@@ -143,7 +140,7 @@
     color: #6b7280;
 }
 
-/* Модальное меню */
+/* Modal menu */
 .menuOverlay {
     position: fixed;
     top: 0;
@@ -191,4 +188,26 @@
 
 .channelIcon {
     padding-top: 15px;
+}
+
+@media (max-width: 768px){
+    .videoGrid {
+        padding: 0;
+        margin-top: 1rem;
+    }
+
+    /* Chrome, Safari */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Firefox */
+    html {
+        scrollbar-width: none;
+    }
+
+    /* IE/Edge старые */
+    html {
+        -ms-overflow-style: none;
+    }
 }
